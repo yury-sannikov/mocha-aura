@@ -1,0 +1,5 @@
+<aura:component>
+  <aura:attribute name="durationObj" type="Object" required="true"/>
+  <aura:attribute name="result" type="Integer" required="true"/>
+  <span>Sample Component. Result: {!v.result}</span>
+</aura:component>

@@ -1,0 +1,23 @@
+{
+  "name": "auraSpecs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha  --require mocha-aura 'specs/**/*.js'",
+    "watch": "chokidar --initial './specs/**' '../src/aura/**/*.js' -c 'npm run test'",
+    "coverage": "istanbul cover -x 'specs/**/*.js' --root '../src/aura' --include-all-sources --post-require-hook mocha-aura ./node_modules/mocha-runner/bin/runner.js -- 'specs/**/*.js' html text-summary"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "chokidar-cli": "^1.2.0",
+    "istanbul": "^0.4.5",
+    "mocha-runner": "^1.1.2"
+  },
+  "dependencies": {
+    "mocha": "^3.3.0",
+    "mocha-aura": "0.0.2"
+  }
+}
