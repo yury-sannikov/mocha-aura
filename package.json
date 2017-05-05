@@ -5,9 +5,10 @@
     "name": "Yuriy Sannikov",
     "email": "yury.sannikov@gmail.com"
   },
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "./dist/index.js",
   "license": "MIT",
+  "keywords": ["Salesforce", "force.com", "Aura", "Lightning", "mocha", "istanbul"],
   "files": [
     "dist"
   ],  
