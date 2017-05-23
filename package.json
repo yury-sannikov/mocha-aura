@@ -8,15 +8,22 @@
   "version": "0.0.5",
   "main": "./dist/index.js",
   "license": "MIT",
-  "keywords": ["Salesforce", "force.com", "Aura", "Lightning", "mocha", "istanbul"],
+  "keywords": [
+    "Salesforce",
+    "force.com",
+    "Aura",
+    "Lightning",
+    "mocha",
+    "istanbul"
+  ],
   "files": [
     "dist"
-  ],  
+  ],
   "scripts": {
     "init": "mkdir dist",
     "clean": "rm -rf dist",
     "prebuild": "npm run clean && npm run init",
-    "build": "babel ./lib -d ./dist",    
+    "build": "babel ./lib -d ./dist",
     "test": "mocha --compilers js:babel-core/register 'specs/*.js'",
     "watch": "chokidar --initial './specs/**' './lib/*.js' -c 'npm run test'",
     "coverage": "istanbul cover -x 'specs/*.js' --root './lib' --include-all-sources ./node_modules/mocha-runner/bin/runner.js -- 'specs/*.js' html text-summary"
@@ -32,6 +39,7 @@
     "mocha-runner": "^1.1.2"
   },
   "dependencies": {
+    "app-module-path": "^2.2.0",
     "mocha": "^3.3.0"
   }
 }
