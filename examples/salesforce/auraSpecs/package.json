@@ -18,6 +18,6 @@
   },
   "dependencies": {
     "mocha": "^3.3.0",
-    "mocha-aura": "0.0.2"
+    "mocha-aura": "0.0.5"
   }
 }
