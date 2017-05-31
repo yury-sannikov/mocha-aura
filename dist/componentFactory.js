@@ -41,11 +41,11 @@ var Component = function () {
             findMap: {}
         }, params);
 
-        this.getStub = sinon.stub(this, 'get', function (name) {
+        this.getStub = sinon.stub(this, 'get').callsFake(function (name) {
             return _this.params[name] || _this.params[name.substring(2)];
         });
 
-        this.setStub = sinon.stub(this, 'set', function (name, value) {
+        this.setStub = sinon.stub(this, 'set').callsFake(function (name, value) {
             _this.params[name] = value;
         });
     }

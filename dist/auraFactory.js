@@ -24,7 +24,7 @@ var Aura = function () {
 
         this.params = params;
         this.util = new AuraUtil();
-        this.getStub = sinon.stub(this, 'get', function (name) {
+        this.getStub = sinon.stub(this, 'get').callsFake(function (name) {
             return params[name];
         });
     }
