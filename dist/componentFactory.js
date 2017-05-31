@@ -12,21 +12,24 @@ var ComponentAdapters = {
     }
 };
 
-exports.componentFactory = function componentFactory() {
+function componentFactory() {
     var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
 
     var instance = new Component(params);
     var adapter = ComponentAdapters[type.toLowerCase()];
     return adapter ? adapter(instance, params) : instance;
-};
+}
 
-exports.useComponentAdapters = function useComponentAdapters(registrator) {
+function useComponentAdapters(registrator) {
     var register = function register(componentType, adapter) {
         ComponentAdapters[componentType.toLowerCase()] = adapter;
     };
     registrator({ register: register });
-};
+}
+
+exports.componentFactory = componentFactory;
+exports.useComponentAdapters = useComponentAdapters;
 
 var Component = function () {
     function Component(params) {
