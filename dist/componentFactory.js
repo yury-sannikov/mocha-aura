@@ -5,6 +5,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var sinon = require('sinon');
+var _ = require('lodash');
 
 var ComponentAdapters = {
     'default': function _default(instance) {
@@ -42,10 +43,16 @@ var Component = function () {
         }, params);
 
         this.getStub = sinon.stub(this, 'get').callsFake(function (name) {
-            return _this.params[name] || _this.params[name.substring(2)];
+            if (name.startsWith('v.') || name.startsWith('c.') || name.startsWith('e.')) {
+                name = name.substring(2);
+            }
+            return _.get(_this.params, name);
         });
 
         this.setStub = sinon.stub(this, 'set').callsFake(function (name, value) {
+            if (name.startsWith('v.')) {
+                name = name.substring(2);
+            }
             _this.params[name] = value;
         });
     }
@@ -61,6 +68,9 @@ var Component = function () {
         value: function find(name) {
             var typeOrComponent = this.params.findMap[name];
             if (typeOrComponent instanceof Component) {
+                return typeOrComponent;
+            }
+            if (!typeOrComponent && this.params.findMap.hasOwnProperty(name)) {
                 return typeOrComponent;
             }
             return componentFactory(this.params, typeOrComponent);

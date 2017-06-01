@@ -40,6 +40,10 @@
   },
   "dependencies": {
     "app-module-path": "^2.2.0",
-    "mocha": "^3.3.0"
+    "help": "^3.0.2",
+    "lodash": "^4.17.4",
+    "mocha": "^3.3.0",
+    "sinon": "^2.3.0",
+    "sinon-chai": "^2.10.0"
   }
 }

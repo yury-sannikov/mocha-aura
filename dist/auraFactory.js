@@ -9,11 +9,13 @@ var sinon = require('sinon');
 var _require = require('./auraUtil'),
     AuraUtil = _require.AuraUtil;
 
-exports.auraFactory = function auraFactory() {
+function auraFactory() {
     var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     return new Aura(params);
-};
+}
+
+exports.auraFactory = auraFactory;
 
 var _require2 = require('./componentFactory'),
     componentFactory = _require2.componentFactory;
@@ -27,11 +29,22 @@ var Aura = function () {
         this.getStub = sinon.stub(this, 'get').callsFake(function (name) {
             return params[name];
         });
+        this.enqueueActionStub = sinon.stub(this, 'enqueueAction').callsFake(function (action) {
+            return action && action.invokeCallback && action.invokeCallback(true);
+        });
     }
 
     _createClass(Aura, [{
+        key: 'setParams',
+        value: function setParams(params) {
+            Object.assign(this.params, params);
+        }
+    }, {
         key: 'get',
         value: function get(name) {}
+    }, {
+        key: 'enqueueAction',
+        value: function enqueueAction() {}
     }, {
         key: 'createComponent',
         value: function createComponent(type, attributes, callback) {
