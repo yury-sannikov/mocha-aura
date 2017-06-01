@@ -7,13 +7,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var sinon = require('sinon');
 
 exports.eventFactory = function eventFactory() {
-    return new Event();
+    var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    return new Event(params);
 };
 
 var Event = function () {
-    function Event() {
+    function Event(params) {
         _classCallCheck(this, Event);
 
+        this.params = params;
         this.fire = sinon.spy();
     }
 
