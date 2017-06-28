@@ -22,6 +22,8 @@ var _require2 = require('./componentFactory'),
 
 var Aura = function () {
     function Aura(params) {
+        var _this = this;
+
         _classCallCheck(this, Aura);
 
         this.params = params;
@@ -29,9 +31,17 @@ var Aura = function () {
         this.getStub = sinon.stub(this, 'get').callsFake(function (name) {
             return params[name];
         });
+        this.setStub = sinon.stub(this, 'set').callsFake(function (name, value) {
+            return params[name] = value;
+        });
         this.enqueueActionStub = sinon.stub(this, 'enqueueAction').callsFake(function (action) {
             return action && action.invokeCallback && action.invokeCallback(true);
         });
+        sinon.stub(this, 'getReference');
+        sinon.stub(this, 'getRoot').callsFake(function () {
+            return _this.rootComponent || (_this.rootComponent = new componentFactory());
+        });
+        sinon.stub(this, 'reportError');
     }
 
     _createClass(Aura, [{
@@ -66,12 +76,51 @@ var Aura = function () {
             return component;
         }
     }, {
+        key: 'createComponents',
+        value: function createComponents(componentDefs, callback) {
+            var _this2 = this;
+
+            var result = componentDefs.map(function (def) {
+                return _this2.createComponent(def[0], def[1]);
+            });
+            if (callback) {
+                callback(result, 'SUCCESS', result.map(function (_) {
+                    return 'SUCCESS';
+                }));
+            }
+            return result;
+        }
+    }, {
         key: 'getCallback',
         value: function getCallback(callback) {
             return function () {
                 callback && callback();
             };
         }
+    }, {
+        key: 'getComponent',
+        value: function getComponent(id) {
+            return this.params[id];
+        }
+    }, {
+        key: 'getReference',
+        value: function getReference() {}
+    }, {
+        key: 'getRoot',
+        value: function getRoot() {}
+    }, {
+        key: 'getToken',
+        value: function getToken(name) {
+            return this.params['token.' + name];
+        }
+    }, {
+        key: 'log',
+        value: function log(value, err) {
+            console && console.log(value, err);
+        }
+    }, {
+        key: 'reportError',
+        value: function reportError() {}
     }]);
 
     return Aura;

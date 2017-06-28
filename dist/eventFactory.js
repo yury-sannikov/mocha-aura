@@ -11,13 +11,18 @@ exports.eventFactory = function eventFactory() {
 
     return new Event(params);
 };
+var FAKE_EVENT_NAME = 'mocha-aura-fake-event';
 
 var Event = function () {
     function Event(params) {
         _classCallCheck(this, Event);
 
-        this.params = params;
+        this.params = params || {};
         this.fire = sinon.spy();
+        this.pause = sinon.spy();
+        this.preventDefault = sinon.spy();
+        this.resume = sinon.spy();
+        this.stopPropagation = sinon.spy();
     }
 
     _createClass(Event, [{
@@ -26,9 +31,44 @@ var Event = function () {
             this.params = params;
         }
     }, {
+        key: 'setParam',
+        value: function setParam(key, value) {
+            this.params[key] = value;
+        }
+    }, {
         key: 'getParams',
         value: function getParams() {
             return this.params;
+        }
+    }, {
+        key: 'getEventType',
+        value: function getEventType() {
+            return 'APPLICATION';
+        }
+    }, {
+        key: 'getName',
+        value: function getName() {
+            return this.params.eventName || FAKE_EVENT_NAME;
+        }
+    }, {
+        key: 'getParam',
+        value: function getParam(name) {
+            return this.params[name];
+        }
+    }, {
+        key: 'getPhase',
+        value: function getPhase() {
+            return 'default';
+        }
+    }, {
+        key: 'getSource',
+        value: function getSource() {
+            return null;
+        }
+    }, {
+        key: 'getType',
+        value: function getType() {
+            return 'c:' + FAKE_EVENT_NAME;
         }
     }]);
 
