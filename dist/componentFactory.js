@@ -7,6 +7,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var sinon = require('sinon');
 var _ = require('lodash');
 
+var _require = require('./eventFactory'),
+    eventFactory = _require.eventFactory;
+
 var ComponentAdapters = {
     'default': function _default(instance) {
         return instance;
@@ -17,7 +20,7 @@ function componentFactory() {
     var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
 
-    var instance = new Component(params);
+    var instance = new Component(params, type);
     var adapter = ComponentAdapters[type.toLowerCase()];
     return adapter ? adapter(instance, params) : instance;
 }
@@ -33,7 +36,7 @@ exports.componentFactory = componentFactory;
 exports.useComponentAdapters = useComponentAdapters;
 
 var Component = function () {
-    function Component(params) {
+    function Component(params, type) {
         var _this = this;
 
         _classCallCheck(this, Component);
@@ -41,7 +44,7 @@ var Component = function () {
         this.params = Object.assign({}, {
             findMap: {}
         }, params);
-
+        this.type = type || 'default';
         this.getStub = sinon.stub(this, 'get').callsFake(function (name) {
             if (name.startsWith('v.') || name.startsWith('c.') || name.startsWith('e.')) {
                 name = name.substring(2);
@@ -55,6 +58,13 @@ var Component = function () {
             }
             _this.params[name] = value;
         });
+        sinon.stub(this, 'addEventHandler');
+        sinon.stub(this, 'addHandler');
+        sinon.stub(this, 'addValueHandler');
+        sinon.stub(this, 'addValueProvider');
+        sinon.stub(this, 'autoDestroy');
+        sinon.stub(this, 'destroy');
+        sinon.stub(this, 'removeEventHandler');
     }
 
     _createClass(Component, [{
@@ -79,6 +89,76 @@ var Component = function () {
         key: 'getLocalId',
         value: function getLocalId() {
             return this.params['aura:id'];
+        }
+    }, {
+        key: 'clearReference',
+        value: function clearReference(key) {
+            delete this.params[key];
+        }
+    }, {
+        key: 'getConcreteComponent',
+        value: function getConcreteComponent() {
+            return this;
+        }
+    }, {
+        key: 'getElement',
+        value: function getElement() {
+            return this;
+        }
+    }, {
+        key: 'getElements',
+        value: function getElements() {
+            return [this];
+        }
+    }, {
+        key: 'getEvent',
+        value: function getEvent(name) {
+            return this.params[name] || eventFactory();
+        }
+    }, {
+        key: 'getGlobalId',
+        value: function getGlobalId() {
+            return 'global-' + this.params['aura:id'];
+        }
+    }, {
+        key: 'getName',
+        value: function getName() {
+            return this.type;
+        }
+    }, {
+        key: 'getType',
+        value: function getType() {
+            return this.type;
+        }
+    }, {
+        key: 'getReference',
+        value: function getReference(key) {
+            return this.params[key];
+        }
+    }, {
+        key: 'getSuper',
+        value: function getSuper() {
+            return null;
+        }
+    }, {
+        key: 'getVersion',
+        value: function getVersion() {
+            return '1.0';
+        }
+    }, {
+        key: 'isConcrete',
+        value: function isConcrete() {
+            return true;
+        }
+    }, {
+        key: 'isInstanceOf',
+        value: function isInstanceOf(name) {
+            return this.type === name;
+        }
+    }, {
+        key: 'isValid',
+        value: function isValid() {
+            return true;
         }
     }]);
 
