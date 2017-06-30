@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 // Check for /src/aura/Component/ComponentController.js or /src/aura/Component/ComponentHelper.js pattern
-export const isAuraFile = (filename) => /src\/aura\/[^\/]+\/.+(Controller|Helper).js$/.test(filename);
+export const isAuraFile = (filename) => /src\/aura\/[^/]+\/.+(Controller|Helper).js$/.test(filename);
 
 // Add module.exports for every aura file
 export const auraCodeTransformer = (code) => {

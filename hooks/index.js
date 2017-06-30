@@ -9,6 +9,6 @@ if (runUnderIstanbul(require.cache)) {
 }
 
 // Conform to post-require-hook for istanbul
-module.exports = function(matchFn, transformer, verbose) {
+module.exports = function() {
   return null;
 }
