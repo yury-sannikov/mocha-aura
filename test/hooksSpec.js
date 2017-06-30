@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const sinonChai = require("sinon-chai");
 chai.use(sinonChai);
 
-import { isAuraFile, auraCodeTransformer, hookIstanbul, hookRequire, runUnderIstanbul } from '../lib/hooks';
+import { isAuraFile, auraCodeTransformer, hookIstanbul, hookRequire, runUnderIstanbul } from '../hooks/hooks';
 
 describe('Hooks', function() {
   describe('isAuraFile', function() {

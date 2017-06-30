@@ -22,7 +22,7 @@ export default {
   targets: [
     {
       dest: pkg.main,
-      format: 'umd',
+      format: 'es',
       moduleName: 'aurahooks',
       sourceMap: 'inline'
     }
