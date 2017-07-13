@@ -14,6 +14,14 @@ describe('Hooks', function() {
     it('should return true for aura helper', function() {
       expect(isAuraFile('src/aura/ViewComponent/ViewComponentHelper.js')).to.be.ok;
     });
+    describe('under windows', () => {
+      it('should return true for aura helper', function() {
+        expect(isAuraFile('src\\aura\\ViewComponent\\ViewComponentHelper.js', '\\')).to.be.ok;
+      });
+      it('should return false for aura non-js helper', function() {
+        expect(isAuraFile('src\\aura\\ViewComponent\\ViewComponentHelper.jsx')).not.to.be.ok;
+      });
+    })
     it('should return true for aura renderer', function() {
       expect(isAuraFile('src/aura/ViewComponent/ViewComponentRenderer.js')).to.be.ok;
     });

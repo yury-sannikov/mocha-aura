@@ -1,7 +1,20 @@
 const fs = require('fs');
+const path = require('path');
+
+let OS_Regexps = {}
 
 // Check for /src/aura/Component/ComponentController.js or /src/aura/Component/ComponentHelper.js pattern
-export const isAuraFile = (filename) => /src\/aura\/[^/]+\/.+(Controller|Helper|Renderer).js$/.test(filename);
+const buidRegexp = sep => {
+  const separator = '\\' + sep;
+  return new RegExp(`src${separator}aura${separator}[^${separator}]+${separator}.+(Controller|Helper|Renderer).js$`)
+}
+export const isAuraFile = (filename, sep = path.sep) => {
+  let auraRegex = OS_Regexps[sep]
+  if (!auraRegex) {
+    auraRegex = OS_Regexps[sep] = buidRegexp(sep);
+  }
+  return auraRegex.test(filename);
+}
 
 // Add module.exports for every aura file
 export const auraCodeTransformer = (code) => {
