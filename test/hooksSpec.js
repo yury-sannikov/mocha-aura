@@ -22,6 +22,20 @@ describe('Hooks', function() {
         expect(isAuraFile('src\\aura\\ViewComponent\\ViewComponentHelper.jsx')).not.to.be.ok;
       });
     })
+    describe('custom regex passed through process.env.AURA_HOOK_REGEX', () => {
+      beforeEach(()=> {
+        process.env.AURA_HOOK_REGEX = 'myAura/.+(Kontroller.js$|Xelper.js$)'
+      })
+      afterEach(()=> {
+        delete process.env.AURA_HOOK_REGEX
+      })
+      it('should return true for custom helper', function() {
+        expect(isAuraFile('myAura/ViewComponentXelper.js', '-')).to.be.ok;
+      });
+      it('should return true for custom controller', function() {
+        expect(isAuraFile('myAura/ViewComponentKontroller.js', '-')).to.be.ok;
+      });
+    })
     it('should return true for aura renderer', function() {
       expect(isAuraFile('src/aura/ViewComponent/ViewComponentRenderer.js')).to.be.ok;
     });

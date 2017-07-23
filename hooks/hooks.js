@@ -6,7 +6,12 @@ let OS_Regexps = {}
 // Check for /src/aura/Component/ComponentController.js or /src/aura/Component/ComponentHelper.js pattern
 const buidRegexp = sep => {
   const separator = '\\' + sep;
-  return new RegExp(`src${separator}aura${separator}[^${separator}]+${separator}.+(Controller|Helper|Renderer).js$`)
+  let regex = `src${separator}aura${separator}[^${separator}]+${separator}.+(Controller|Helper|Renderer).js$`;
+  // Override regex with custom supplied regex
+  if (process.env.AURA_HOOK_REGEX) {
+    regex = process.env.AURA_HOOK_REGEX
+  }
+  return new RegExp(regex)
 }
 export const isAuraFile = (filename, sep = path.sep) => {
   let auraRegex = OS_Regexps[sep]
