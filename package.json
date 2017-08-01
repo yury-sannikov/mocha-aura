@@ -31,7 +31,7 @@
     "clean": "rm -rf dist",
     "prebuild": "eslint lib test",
     "build": "rollup -c --environment BUILD:production && rollup -c rollup-hooks.config.js --environment BUILD:production",
-    "watch": "rollup -c -w",
+    "watch": "rollup -c --environment BUILD:production -w",
     "pretest": "rollup -c && rollup -c rollup-hooks.config.js",
     "test": "mocha",
     "prepublish": "npm test"
