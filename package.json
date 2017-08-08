@@ -5,7 +5,7 @@
     "name": "Yuriy Sannikov",
     "email": "yury.sannikov@gmail.com"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "mainumd": "dist/mocha-aura.umd.js",
   "module": "aura.js",

@@ -96,6 +96,9 @@ describe('Hooks', function() {
     it('should be truthy with istanbul in a cache', function() {
       expect(runUnderIstanbul({'user/node_modules/istanbul':{}})).to.be.ok;
     });
+    it('should be truthy with istanbul in a cache for Windows', function() {
+      expect(runUnderIstanbul({'user\\node_modules\\istanbul':{}}, '\\')).to.be.ok;
+    });
     it('should be false with no istanbul in a cache', function() {
       expect(runUnderIstanbul({'user/node_modules/lodash':{}})).not.to.be.ok;
     });

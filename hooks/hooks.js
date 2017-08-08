@@ -53,8 +53,8 @@ export function hookRequire(_Module) {
   };
 }
 
-export const runUnderIstanbul = (_cache) => Object.keys(_cache)
-                          .some((key) => key.indexOf('node_modules/istanbul') !== -1);
+export const runUnderIstanbul = (_cache, sep = path.sep) => Object.keys(_cache)
+                          .some((key) => key.indexOf(`node_modules${sep}istanbul`) !== -1);
 
 
 
