@@ -1,0 +1,25 @@
+yum update
+
+docker run \
+    --name ipsec-vpn-server \
+    --restart=always \
+    -p 500:500/udp \
+    -p 4500:4500/udp \
+    -v /lib/modules:/lib/modules:ro \
+    -d --privileged \
+    hwdsl2/ipsec-vpn-server
+
+
+    IPsec VPN server is now ready for use!
+
+Connect to your new VPN with these details:
+
+Server IP: 52.203.125.38
+IPsec PSK: Aj3xtLoTkWg4b6pq
+Username: vpnuser
+Password: BpgSnXPm4Bn5XLkN
+
+Write these down. You'll need them to connect!
+
+Important notes:   https://git.io/vpnnotes2
+Setup VPN clients: https://git.io/vpnclients
